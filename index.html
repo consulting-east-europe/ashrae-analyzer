@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASHRAE TC 9.9 — Аналізатор дата-центру</title>
+<title>ASHRAE TC 9.9 — Data Center Compliance Analyzer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root {
   --bg: #0D0F14;
@@ -40,11 +39,7 @@ body {
   min-height: 100vh;
   line-height: 1.6;
 }
-
-/* LAYOUT */
 .shell { max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
-
-/* HEADER */
 .site-header {
   padding: 40px 20px 0;
   max-width: 780px;
@@ -75,8 +70,6 @@ body {
   border-radius: 20px;
   white-space: nowrap;
 }
-
-/* STEPPER */
 .stepper {
   display: flex;
   align-items: center;
@@ -126,8 +119,6 @@ body {
 .step.active .step-name { color: var(--blue); }
 .step.done .step-name { color: var(--green); }
 .step-line { flex: 1; height: 1px; background: var(--border); min-width: 12px; max-width: 40px; margin-bottom: 18px; }
-
-/* CARDS */
 .card {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -158,8 +149,6 @@ body {
   background: var(--blue);
   border-radius: 2px;
 }
-
-/* SECTION HEADING */
 .section-h {
   font-size: 20px;
   font-weight: 700;
@@ -168,8 +157,6 @@ body {
   letter-spacing: -0.02em;
 }
 .section-sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; line-height: 1.5; }
-
-/* REQUIREMENT GRID */
 .req-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -196,8 +183,6 @@ body {
   border-radius: 4px;
   margin-top: 6px;
 }
-
-/* CLASS TABLE */
 .cls-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .cls-table th {
   text-align: left;
@@ -212,14 +197,7 @@ body {
 .cls-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
 .cls-table tr:last-child td { border-bottom: none; }
 .cls-table tr:hover td { background: var(--bg3); }
-.cls-badge {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--blue);
-}
-
-/* PRINCIPLES */
+.cls-badge { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--blue); }
 .principles { display: flex; flex-direction: column; gap: 10px; }
 .principle {
   display: flex;
@@ -245,8 +223,6 @@ body {
 }
 .p-name { font-size: 13px; font-weight: 500; color: var(--text); }
 .p-desc { font-size: 12px; color: var(--text2); margin-top: 3px; line-height: 1.5; }
-
-/* FORM */
 .form-block { margin-bottom: 20px; }
 .form-label { font-size: 12px; font-family: var(--mono); color: var(--text2); margin-bottom: 8px; display: block; }
 .form-label strong { color: var(--text); font-weight: 500; }
@@ -267,8 +243,6 @@ body {
 .input-unit { font-family: var(--mono); font-size: 12px; color: var(--text3); }
 .input-hint { font-size: 11px; color: var(--text3); margin-top: 5px; font-family: var(--mono); }
 .input-hint span { color: var(--blue); }
-
-/* BUTTONS */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -298,8 +272,6 @@ body {
 .btn-ghost:hover { color: var(--text); border-color: var(--border); }
 .nav-row { display: flex; gap: 10px; margin-top: 16px; }
 .nav-row .btn-primary { flex: 1; }
-
-/* RESULTS */
 .summary-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -318,7 +290,6 @@ body {
 .sum-ok .num { color: var(--green); }
 .sum-warn .num { color: var(--amber); }
 .sum-fail .num { color: var(--red); }
-
 .score-line {
   display: flex;
   align-items: center;
@@ -328,15 +299,8 @@ body {
   font-family: var(--mono);
   color: var(--text2);
 }
-.score-track {
-  height: 4px;
-  background: var(--bg3);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
+.score-track { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
 .score-fill { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
-
 .result-card {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -360,24 +324,13 @@ body {
 .st-ok { background: rgba(62,207,142,0.12); color: var(--green); border: 1px solid rgba(62,207,142,0.25); }
 .st-warn { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,166,35,0.25); }
 .st-fail { background: var(--red-dim); color: var(--red); border: 1px solid rgba(245,86,74,0.25); }
-.rc-cols {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.rc-col {
-  background: var(--bg2);
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-}
+.rc-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.rc-col { background: var(--bg2); border-radius: 8px; padding: 10px; text-align: center; }
 .rc-col-label { font-size: 10px; font-family: var(--mono); color: var(--text3); margin-bottom: 4px; }
 .rc-col-val { font-size: 16px; font-weight: 700; font-family: var(--mono); }
 .dev-pos { color: var(--green); }
 .dev-neg { color: var(--red); }
 .dev-zero { color: var(--text3); }
-
-/* FINAL TABLE */
 .final-meta {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -391,7 +344,6 @@ body {
 .final-score { font-size: 40px; font-weight: 700; font-family: var(--mono); }
 .final-score-label { font-size: 13px; font-weight: 500; }
 .final-score-sub { font-size: 11px; font-family: var(--mono); color: var(--text2); margin-top: 3px; }
-
 .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .comp-table th {
   text-align: left;
@@ -408,8 +360,6 @@ body {
 .comp-table tr:last-child td { border-bottom: none; }
 .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
 .comp-table .note { font-size: 11px; font-family: var(--mono); color: var(--text3); margin-top: 14px; line-height: 1.6; }
-
-/* FOOTER */
 footer {
   border-top: 1px solid var(--border);
   margin-top: 60px;
@@ -424,12 +374,8 @@ footer {
   gap: 10px;
 }
 footer p { font-size: 11px; font-family: var(--mono); color: var(--text3); }
-
-/* RESPONSIVE */
 @media (max-width: 520px) {
   .req-grid { grid-template-columns: repeat(2, 1fr); }
-  .rc-cols { grid-template-columns: repeat(3, 1fr); }
-  .summary-row { grid-template-columns: repeat(3, 1fr); }
   .final-meta { flex-direction: column; align-items: flex-start; }
 }
 </style>
@@ -452,50 +398,45 @@ footer p { font-size: 11px; font-family: var(--mono); color: var(--text3); }
 </header>
 
 <main class="shell">
-
-  <!-- STEPPER -->
-  <nav class="stepper" id="stepper" aria-label="Кроки аналізу"></nav>
-
-  <!-- SCREEN -->
+  <nav class="stepper" id="stepper" aria-label="Analysis steps"></nav>
   <div id="screen"></div>
-
 </main>
 
 <footer>
   <p>ASHRAE TC 9.9 Thermal Guidelines for Data Processing Environments, 4th Edition</p>
-  <p>Розроблено для LinkedIn · Відкрите використання</p>
+  <p>Free tool · Open use</p>
 </footer>
 
 <script>
 const STEPS = [
-  { key:'req',   label:'Вимоги' },
-  { key:'princ', label:'Принципи' },
-  { key:'data',  label:'Ваші дані' },
-  { key:'anal',  label:'Аналіз' },
-  { key:'table', label:'Підсумок' },
+  { key:'req',   label:'Requirements' },
+  { key:'princ', label:'Principles' },
+  { key:'data',  label:'Your Data' },
+  { key:'anal',  label:'Analysis' },
+  { key:'table', label:'Report' },
 ];
 
 const CLASSES = [
-  { cls:'A1', temp:'15–32°C',  hum:'20–80% RH', dp:'≤17°C', use:'Критична інфраструктура (банки, держ.)' },
-  { cls:'A2', temp:'10–35°C',  hum:'20–80% RH', dp:'≤21°C', use:'Корпоративні ЦОД' },
-  { cls:'A3', temp:'5–40°C',   hum:'8–85% RH',  dp:'≤24°C', use:'Хмарні / HPC центри' },
+  { cls:'A1', temp:'15–32°C',  hum:'20–80% RH', dp:'≤17°C', use:'Mission-critical (finance, government)' },
+  { cls:'A2', temp:'10–35°C',  hum:'20–80% RH', dp:'≤21°C', use:'Enterprise data centers' },
+  { cls:'A3', temp:'5–40°C',   hum:'8–85% RH',  dp:'≤24°C', use:'Cloud / HPC facilities' },
   { cls:'A4', temp:'5–45°C',   hum:'8–90% RH',  dp:'≤24°C', use:'Telecom / Edge / IoT' },
 ];
 
 const REQS = [
-  { icon:'🌡️', name:'Температура на вході', range:'15–32°C (A1)', cls:'A1/A2' },
-  { icon:'💧', name:'Відносна вологість',    range:'20–80% RH',    cls:'A1/A2' },
-  { icon:'⚡', name:'PUE (енергоефективн.)', range:'≤ 1.5 (ціль <1.2)', cls:'ISO/ASHRAE' },
-  { icon:'🌬️', name:'Швидкість повітря',     range:'≥ 2.5 м/с',    cls:'ASHRAE' },
-  { icon:'🔁', name:'Різниця темп. ΔT',      range:'≤ 20°C',       cls:'ASHRAE' },
+  { icon:'🌡️', name:'IT Inlet Temperature', range:'15–32°C (A1)', cls:'A1/A2' },
+  { icon:'💧', name:'Relative Humidity',     range:'20–80% RH',    cls:'A1/A2' },
+  { icon:'⚡', name:'PUE (Energy Efficiency)', range:'≤ 1.5 (target <1.2)', cls:'ISO/ASHRAE' },
+  { icon:'🌬️', name:'Airflow Velocity',      range:'≥ 2.5 m/s',    cls:'ASHRAE' },
+  { icon:'🔁', name:'Temperature Delta (ΔT)', range:'≤ 20°C',      cls:'ASHRAE' },
 ];
 
 const PRINCIPLES = [
-  { name:'Теплове зонування (Hot/Cold Aisle)', desc:'Розділення гарячих та холодних коридорів для мінімізації рециркуляції тепла та підвищення ефективності охолодження.' },
-  { name:'Контроль мікроклімату (IT Inlet Temp)', desc:'Температура повітря на вході до ІТ-обладнання відповідно до класу ASHRAE A1: 15–32°C, A2: 10–35°C.' },
-  { name:'Управління вологістю', desc:'Підтримка відносної вологості 20–80% RH та точки роси для запобігання конденсату та статичній електриці.' },
-  { name:'PUE — ефективність використання енергії', desc:'Power Usage Effectiveness = загальна потужність ЦОД / потужність ІТ. Ціль ASHRAE: PUE < 1.5, кращі практики: < 1.2.' },
-  { name:'Резервування та відмовостійкість систем', desc:'Надійність охолодження за рівнями Tier I–IV: резервні компоненти (N, N+1, 2N) для безперервної роботи ІТ.' },
+  { name:'Thermal Zoning — Hot/Cold Aisle Containment', desc:'Physical separation of hot and cold airstreams minimizes recirculation and significantly improves cooling efficiency across the DC floor.' },
+  { name:'IT Inlet Temperature Control', desc:'Air temperature at the IT equipment intake must comply with the ASHRAE class rating: A1 (15–32°C), A2 (10–35°C). Exceeding this voids equipment warranties.' },
+  { name:'Humidity Management', desc:'Maintaining 20–80% RH and controlling dew point prevents condensation (too humid) and electrostatic discharge (too dry), both of which can damage equipment.' },
+  { name:'PUE — Power Usage Effectiveness', desc:'PUE = Total facility power / IT equipment power. ASHRAE target: PUE ≤ 1.5. Industry best practice: PUE < 1.2. World-class hyperscale DCs achieve PUE < 1.1.' },
+  { name:'Redundancy & Fault Tolerance (Tier I–IV)', desc:'Cooling system reliability aligned with Uptime Institute Tier levels. Redundant components (N, N+1, 2N) ensure uninterrupted IT operations during maintenance or failure events.' },
 ];
 
 let step = 0;
@@ -518,7 +459,7 @@ function renderStepper() {
     const dis = i > step + 1 ? 'disabled' : '';
     return `
       ${i > 0 ? '<div class="step-line"></div>' : ''}
-      <button class="step ${cls}" onclick="setStep(${i})" ${dis} aria-label="Крок ${i+1}: ${s.label}">
+      <button class="step ${cls}" onclick="setStep(${i})" ${dis} aria-label="Step ${i+1}: ${s.label}">
         <div class="step-dot">${ico}</div>
         <span class="step-name">${s.label}</span>
       </button>`;
@@ -531,7 +472,6 @@ function renderScreen() {
   el.innerHTML = screens[step]();
 }
 
-/* ---- STEP 0 ---- */
 function renderReq() {
   const rows = CLASSES.map(c => `
     <tr>
@@ -541,10 +481,10 @@ function renderReq() {
       <td style="color:var(--text2);font-size:11px;">${c.use}</td>
     </tr>`).join('');
   return `
-    <h1 class="section-h">Вимоги ASHRAE TC 9.9</h1>
-    <p class="section-sub">ASHRAE TC 9.9 — технічний комітет, що визначає теплові умови для ІТ-обладнання в дата-центрах. Стандарт виділяє 4 класи оточуючого середовища.</p>
+    <h1 class="section-h">ASHRAE TC 9.9 Requirements</h1>
+    <p class="section-sub">ASHRAE TC 9.9 is the technical committee that sets thermal guidelines for IT equipment in data centers. The standard defines 4 environmental classes based on operating conditions.</p>
     <div class="card">
-      <div class="card-title">Ключові показники контролю</div>
+      <div class="card-title">Key control parameters</div>
       <div class="req-grid">
         ${REQS.map(r => `
           <div class="req-tile">
@@ -556,28 +496,27 @@ function renderReq() {
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Класи оточуючого середовища ASHRAE</div>
+      <div class="card-title">ASHRAE environmental classes</div>
       <div style="overflow-x:auto;">
         <table class="cls-table">
           <thead><tr>
-            <th>Клас</th><th>Температура</th><th>Вологість</th><th>Застосування</th>
+            <th>Class</th><th>Temperature</th><th>Humidity</th><th>Typical use</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
     </div>
     <div class="nav-row">
-      <button class="btn btn-primary" onclick="setStep(1)">Далі: 5 принципів →</button>
+      <button class="btn btn-primary" onclick="setStep(1)">Next: 5 key principles →</button>
     </div>`;
 }
 
-/* ---- STEP 1 ---- */
 function renderPrinc() {
   return `
-    <h1 class="section-h">5 ключових принципів ASHRAE TC 9.9</h1>
-    <p class="section-sub">Ці принципи є фундаментом для оцінки відповідності будь-якого дата-центру міжнародному стандарту.</p>
+    <h1 class="section-h">5 Key Principles of ASHRAE TC 9.9</h1>
+    <p class="section-sub">These principles form the foundation for assessing compliance of any data center against the international ASHRAE standard.</p>
     <div class="card">
-      <div class="card-title">Принципи теплового управління</div>
+      <div class="card-title">Thermal management principles</div>
       <div class="principles">
         ${PRINCIPLES.map((p, i) => `
           <div class="principle">
@@ -590,25 +529,24 @@ function renderPrinc() {
       </div>
     </div>
     <div class="nav-row">
-      <button class="btn btn-ghost" onclick="setStep(0)">← Назад</button>
-      <button class="btn btn-primary" onclick="setStep(2)">Далі: ввести дані →</button>
+      <button class="btn btn-ghost" onclick="setStep(0)">← Back</button>
+      <button class="btn btn-primary" onclick="setStep(2)">Next: enter your data →</button>
     </div>`;
 }
 
-/* ---- STEP 2 ---- */
 function renderData() {
   const fields = [
-    { id:'temp',    label:'1. Температура повітря на вході', unit:'°C',  hint:'Норма ASHRAE A1: <span>15–32°C</span> | A2: <span>10–35°C</span>', ph:'напр. 24' },
-    { id:'humidity',label:'2. Відносна вологість',           unit:'% RH', hint:'Норма ASHRAE: <span>20–80% RH</span>', ph:'напр. 45' },
-    { id:'pue',     label:'3. PUE — коефіцієнт енергоефективності', unit:'',  hint:'Ціль: <span>≤ 1.5</span>, найкраще: <span>< 1.2</span>', ph:'напр. 1.4' },
-    { id:'airflow', label:'4. Швидкість повітряного потоку між стійками', unit:'м/с', hint:'Мінімум ASHRAE: <span>≥ 2.5 м/с</span>', ph:'напр. 3.0' },
-    { id:'delta_t', label:'5. Різниця температур подачі та повернення (ΔT)', unit:'°C', hint:'Допустимо: <span>≤ 20°C</span>, оптимально 10–15°C', ph:'напр. 12' },
+    { id:'temp',     label:'1. IT inlet air temperature',           unit:'°C',  hint:'ASHRAE A1 range: <span>15–32°C</span> | A2: <span>10–35°C</span>', ph:'e.g. 24' },
+    { id:'humidity', label:'2. Relative humidity',                  unit:'% RH', hint:'ASHRAE range: <span>20–80% RH</span>', ph:'e.g. 45' },
+    { id:'pue',      label:'3. PUE — Power Usage Effectiveness',    unit:'',    hint:'Target: <span>≤ 1.5</span> · Best practice: <span>< 1.2</span>', ph:'e.g. 1.4' },
+    { id:'airflow',  label:'4. Airflow velocity between rack rows', unit:'m/s', hint:'ASHRAE minimum: <span>≥ 2.5 m/s</span>', ph:'e.g. 3.0' },
+    { id:'delta_t',  label:'5. Supply / return temperature delta (ΔT)', unit:'°C', hint:'Allowable: <span>≤ 20°C</span> · Optimal: 10–15°C', ph:'e.g. 12' },
   ];
   return `
-    <h1 class="section-h">Параметри вашого дата-центру</h1>
-    <p class="section-sub">Введіть реальні вимірювані показники. Всі поля обов'язкові для проведення аналізу.</p>
+    <h1 class="section-h">Your Data Center Parameters</h1>
+    <p class="section-sub">Enter your real measured values. All fields are required to generate the compliance analysis.</p>
     <div class="card">
-      <div class="card-title">Вхідні дані для аналізу</div>
+      <div class="card-title">Input parameters</div>
       ${fields.map(f => `
         <div class="form-block">
           <label class="form-label" for="inp_${f.id}"><strong>${f.label}</strong></label>
@@ -618,17 +556,17 @@ function renderData() {
           </div>
           <div class="input-hint">${f.hint}</div>
         </div>`).join('')}
-      <button class="btn btn-primary" onclick="collectAndAnalyze()">Провести аналіз →</button>
+      <button class="btn btn-primary" onclick="collectAndAnalyze()">Run compliance analysis →</button>
     </div>
     <div class="nav-row">
-      <button class="btn btn-ghost" onclick="setStep(1)">← Назад</button>
+      <button class="btn btn-ghost" onclick="setStep(1)">← Back</button>
     </div>`;
 }
 
 function collectAndAnalyze() {
   const ids = ['temp','humidity','pue','airflow','delta_t'];
   const empty = ids.filter(id => !document.getElementById('inp_'+id).value);
-  if (empty.length) { alert('Будь ласка, заповніть всі поля'); return; }
+  if (empty.length) { alert('Please fill in all fields to proceed.'); return; }
   ids.forEach(id => userData[id] = parseFloat(document.getElementById('inp_'+id).value));
   computeResults();
   setStep(3);
@@ -638,50 +576,49 @@ function computeResults() {
   const u = userData;
   results = [
     {
-      param:'Температура повітря', ashrae:'15–32°C', real:u.temp, unit:'°C',
+      param:'IT Inlet Temperature', ashrae:'15–32°C', real:u.temp, unit:'°C',
       ok: u.temp >= 15 && u.temp <= 32,
       warn: (u.temp >= 13 && u.temp < 15) || (u.temp > 32 && u.temp <= 35),
       dev: u.temp < 15 ? (u.temp-15).toFixed(1) : u.temp > 32 ? '+' + (u.temp-32).toFixed(1) : '0',
-      principle:'IT Inlet Temp'
+      principle:'IT Inlet Temp Control'
     },
     {
-      param:'Відносна вологість', ashrae:'20–80% RH', real:u.humidity, unit:'%',
+      param:'Relative Humidity', ashrae:'20–80% RH', real:u.humidity, unit:'%',
       ok: u.humidity >= 20 && u.humidity <= 80,
       warn: (u.humidity >= 15 && u.humidity < 20) || (u.humidity > 80 && u.humidity <= 85),
       dev: u.humidity < 20 ? (u.humidity-20).toFixed(1) : u.humidity > 80 ? '+' + (u.humidity-80).toFixed(1) : '0',
-      principle:'Управління вологістю'
+      principle:'Humidity Management'
     },
     {
       param:'PUE', ashrae:'≤ 1.5', real:u.pue, unit:'',
       ok: u.pue <= 1.5,
       warn: u.pue > 1.5 && u.pue <= 1.8,
       dev: u.pue > 1.5 ? '+' + (u.pue-1.5).toFixed(2) : u.pue <= 1.2 ? '-' + (1.5-u.pue).toFixed(2) : '0',
-      principle:'Енергоефективність'
+      principle:'Power Usage Effectiveness'
     },
     {
-      param:'Швидкість повітря', ashrae:'≥ 2.5 м/с', real:u.airflow, unit:'м/с',
+      param:'Airflow Velocity', ashrae:'≥ 2.5 m/s', real:u.airflow, unit:'m/s',
       ok: u.airflow >= 2.5,
       warn: u.airflow >= 2.0 && u.airflow < 2.5,
       dev: u.airflow < 2.5 ? (u.airflow-2.5).toFixed(1) : '0',
-      principle:'Hot/Cold Aisle'
+      principle:'Hot/Cold Aisle Containment'
     },
     {
-      param:'Різниця ΔT', ashrae:'≤ 20°C', real:u.delta_t, unit:'°C',
+      param:'Temperature Delta ΔT', ashrae:'≤ 20°C', real:u.delta_t, unit:'°C',
       ok: u.delta_t <= 20,
       warn: u.delta_t > 20 && u.delta_t <= 25,
       dev: u.delta_t > 20 ? '+' + (u.delta_t-20).toFixed(1) : '0',
-      principle:'Теплове зонування'
+      principle:'Thermal Zoning'
     }
   ];
 }
 
 function getStatus(r) {
-  if (r.ok) return { cls:'st-ok', label:'✓ Норма' };
-  if (r.warn) return { cls:'st-warn', label:'! Увага' };
-  return { cls:'st-fail', label:'✗ Порушення' };
+  if (r.ok) return { cls:'st-ok', label:'✓ Compliant' };
+  if (r.warn) return { cls:'st-warn', label:'! Warning' };
+  return { cls:'st-fail', label:'✗ Non-compliant' };
 }
 
-/* ---- STEP 3 ---- */
 function renderAnal() {
   const okC = results.filter(r => r.ok).length;
   const warnC = results.filter(r => !r.ok && r.warn).length;
@@ -697,21 +634,21 @@ function renderAnal() {
         <div class="rc-head">
           <div>
             <div class="rc-title">${r.param}</div>
-            <div class="rc-principle">Принцип: ${r.principle}</div>
+            <div class="rc-principle">Principle: ${r.principle}</div>
           </div>
           <span class="status-badge ${s.cls}">${s.label}</span>
         </div>
         <div class="rc-cols">
           <div class="rc-col">
-            <div class="rc-col-label">Вимога ASHRAE</div>
+            <div class="rc-col-label">ASHRAE Requirement</div>
             <div class="rc-col-val" style="font-size:13px;color:var(--text2);">${r.ashrae}</div>
           </div>
           <div class="rc-col">
-            <div class="rc-col-label">Реальний</div>
+            <div class="rc-col-label">Actual Value</div>
             <div class="rc-col-val">${r.real}${r.unit}</div>
           </div>
           <div class="rc-col">
-            <div class="rc-col-label">Відхилення</div>
+            <div class="rc-col-label">Deviation</div>
             <div class="rc-col-val ${devCls}">${r.dev}${r.dev !== '0' ? r.unit : ''}</div>
           </div>
         </div>
@@ -719,17 +656,17 @@ function renderAnal() {
   }).join('');
 
   return `
-    <h1 class="section-h">Результати аналізу</h1>
-    <p class="section-sub">Порівняння реальних показників вашого дата-центру з вимогами ASHRAE TC 9.9 (клас A1/A2).</p>
+    <h1 class="section-h">Analysis Results</h1>
+    <p class="section-sub">Comparison of your data center's actual readings against ASHRAE TC 9.9 Class A1/A2 thresholds.</p>
     <div class="card">
-      <div class="card-title">Загальна відповідність</div>
+      <div class="card-title">Overall compliance</div>
       <div class="summary-row">
-        <div class="sum-tile sum-ok"><div class="num">${okC}</div><div class="lbl">В нормі</div></div>
-        <div class="sum-tile sum-warn"><div class="num">${warnC}</div><div class="lbl">Увага</div></div>
-        <div class="sum-tile sum-fail"><div class="num">${failC}</div><div class="lbl">Порушення</div></div>
+        <div class="sum-tile sum-ok"><div class="num">${okC}</div><div class="lbl">Compliant</div></div>
+        <div class="sum-tile sum-warn"><div class="num">${warnC}</div><div class="lbl">Warning</div></div>
+        <div class="sum-tile sum-fail"><div class="num">${failC}</div><div class="lbl">Non-compliant</div></div>
       </div>
       <div class="score-line">
-        <span>Відповідність стандарту</span>
+        <span>Compliance score</span>
         <span style="color:${scoreColor};font-weight:700;">${score}%</span>
       </div>
       <div class="score-track">
@@ -738,19 +675,18 @@ function renderAnal() {
     </div>
     ${cards}
     <div class="nav-row">
-      <button class="btn btn-ghost" onclick="setStep(2)">← Змінити дані</button>
-      <button class="btn btn-primary" onclick="setStep(4)">Фінальна таблиця →</button>
+      <button class="btn btn-ghost" onclick="setStep(2)">← Edit inputs</button>
+      <button class="btn btn-primary" onclick="setStep(4)">Final report →</button>
     </div>`;
 }
 
-/* ---- STEP 4 ---- */
 function renderTable() {
   const okC = results.filter(r => r.ok).length;
   const warnC = results.filter(r => !r.ok && r.warn).length;
   const score = Math.round((okC * 100 + warnC * 50) / results.length);
   const scoreColor = score >= 80 ? 'var(--green)' : score >= 50 ? 'var(--amber)' : 'var(--red)';
-  const scoreLabel = score >= 80 ? 'Відповідає ASHRAE TC 9.9' : score >= 50 ? 'Часткова відповідність' : 'Критичні порушення';
-  const today = new Date().toLocaleDateString('uk-UA');
+  const scoreLabel = score >= 80 ? 'Compliant with ASHRAE TC 9.9' : score >= 50 ? 'Partial compliance — action required' : 'Critical violations — immediate action required';
+  const today = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
 
   const rows = results.map(r => {
     const s = getStatus(r);
@@ -760,49 +696,48 @@ function renderTable() {
         <td style="font-weight:500;">${r.param}</td>
         <td style="color:var(--text2);font-family:var(--mono);font-size:11px;">${r.ashrae}</td>
         <td style="font-family:var(--mono);font-weight:500;">${r.real}${r.unit}</td>
-        <td style="font-family:var(--mono);" class="${devCls}">${r.dev}${r.dev !== '0' ? r.unit : '—'}</td>
+        <td style="font-family:var(--mono);" class="${devCls}">${r.dev !== '0' ? r.dev + r.unit : '—'}</td>
         <td><span class="status-badge ${s.cls}">${s.label}</span></td>
       </tr>`;
   }).join('');
 
   return `
-    <h1 class="section-h">Підсумкова порівняльна таблиця</h1>
-    <p class="section-sub">Фінальний звіт відповідності дата-центру стандарту ASHRAE TC 9.9. Дата оцінки: ${today}.</p>
+    <h1 class="section-h">Compliance Report</h1>
+    <p class="section-sub">Final comparison table of your data center against ASHRAE TC 9.9 requirements. Assessment date: ${today}.</p>
     <div class="card">
       <div class="final-meta">
         <div class="final-score" style="color:${scoreColor};">${score}%</div>
         <div>
           <div class="final-score-label" style="color:${scoreColor};">${scoreLabel}</div>
-          <div class="final-score-sub">Стандарт: ASHRAE TC 9.9 · Клас A1/A2 · ${today}</div>
+          <div class="final-score-sub">Standard: ASHRAE TC 9.9 · Class A1/A2 · ${today}</div>
         </div>
       </div>
       <div style="overflow-x:auto;">
         <table class="comp-table">
           <thead>
             <tr>
-              <th style="width:28%;">Показник</th>
-              <th style="width:22%;">Вимога ASHRAE</th>
-              <th style="width:16%;">Реальний</th>
-              <th style="width:14%;">Відхилення</th>
-              <th style="width:20%;">Статус</th>
+              <th style="width:28%;">Parameter</th>
+              <th style="width:22%;">ASHRAE Requirement</th>
+              <th style="width:16%;">Actual</th>
+              <th style="width:14%;">Deviation</th>
+              <th style="width:20%;">Status</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
       <p class="note" style="border-top:1px solid var(--border);padding-top:14px;">
-        Джерело: ASHRAE TC 9.9 «Thermal Guidelines for Data Processing Environments», 4th Edition.<br>
-        Легенда: ✓ Норма — в межах допуску · ! Увага — незначне відхилення · ✗ Порушення — критичне перевищення.<br>
-        Рекомендується провести повний енергоаудит за стандартами EN 50600 та ISO/IEC 30134.
+        Source: ASHRAE TC 9.9 "Thermal Guidelines for Data Processing Environments", 4th Edition.<br>
+        Legend: ✓ Compliant — within tolerance · ! Warning — minor deviation · ✗ Non-compliant — critical exceedance.<br>
+        A full energy audit per EN 50600 and ISO/IEC 30134 is recommended alongside this assessment.
       </p>
     </div>
     <div class="nav-row">
-      <button class="btn btn-ghost" onclick="setStep(2)">← Переввести дані</button>
-      <button class="btn btn-primary" onclick="window.print()">🖨 Роздрукувати звіт</button>
+      <button class="btn btn-ghost" onclick="setStep(2)">← Re-enter data</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨 Print report</button>
     </div>`;
 }
 
-/* INIT */
 renderStepper();
 renderScreen();
 </script>
